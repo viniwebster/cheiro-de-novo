@@ -27,7 +27,7 @@ const StyledLabel = styled.label`
 
 interface Props {
   placeholder: string;
-  type?: "text" | "email" | "password";
+  type?: "text" | "email" | "password" | "number" | "phone";
   label: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
