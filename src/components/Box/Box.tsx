@@ -9,6 +9,7 @@ const StyledBox = styled.div`
   box-shadow: 0px 0px 20px -10px black;
   padding: 64px;
   box-sizing: border-box;
+  background-color: white;
 
   @media screen and (max-width: 890px){
     padding: 64px 32px;
