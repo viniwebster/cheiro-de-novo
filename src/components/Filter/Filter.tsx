@@ -1,9 +1,6 @@
-import { useState } from "react";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 import styled from "styled-components";
 import { darkColor, veryDarkColor } from "../../UI/variables";
-import { useQuery } from "react-query";
-import { getCategories } from "../../http/http";
 
 const StyledButton = styled.button`
   display: flex;
@@ -17,14 +14,15 @@ const StyledButton = styled.button`
   border: none;
   position: relative;
   text-transform: capitalize;
+  margin-bottom: 32px;
 `;
 
 interface props {
-  active: boolean
+  $active: boolean
 }
 
 const StyledOptions = styled.div<props>`
-  display: ${props => props.active ? "flex" : "none"};
+  display: ${props => props.$active ? "flex" : "none"};
   position: absolute;
   left: 0;
   flex-direction: column;
@@ -62,16 +60,16 @@ interface PropsFilter {
 const Filter = ({ options, filter, setFilter, setOpen, open } : PropsFilter) => {
   return (
     <StyledButton onClick={() => setOpen(!open)} onBlur={() => setOpen(false)}>
-      <span>{filter || "Filtrar Por"}</span>
+      <span>{filter || "Filtrar Por:"}</span>
       {open ? (
         <MdKeyboardArrowUp size={20} />
       ) : (
         <MdKeyboardArrowDown size={20} />
       )}
-      <StyledOptions active={open}>
+      <StyledOptions $active={open}>
         <StyledOption onClick={() => setFilter("")}></StyledOption>
         {options?.map((option) => (
-          <StyledOption onClick={() => setFilter(option)}>{option}</StyledOption>
+          <StyledOption onClick={() => setFilter(option)} key={option}>{option}</StyledOption>
         ))}
       </StyledOptions>
     </StyledButton>
