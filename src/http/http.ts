@@ -19,4 +19,14 @@ export const getProduct = async (id: string) => {
   return response.data
 }
 
+export const getCategories = async () => {
+  const response = await http.get<string[]>(`/products/categories`)
+  return response.data
+}
+
+export const getByCategory = async (category: string) => {
+  const response = await http.get<IProduct[]>(`/products/category/${category}`)
+  return response.data
+}
+
 export default http
