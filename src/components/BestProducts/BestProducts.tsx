@@ -1,38 +1,68 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import http, { getProducts } from "../../http/http";
+import { getAllProducts } from "../../http/http";
 import { IProduct } from "../../interfaces/IProduct";
 import Card from "../Card/Card";
+import { Link, useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import { Container } from "../../UI/utils/container";
+import { veryDarkColor, white } from "../../UI/variables";
 
-const StyledContainerProducts = styled.section`
+export const StyledContainerProducts = styled.section`
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 32px;
-  max-width: 1600px;
-  margin: auto;
-  padding: 64px 0;
+  padding-bottom: 64px;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 890px) {
+    justify-content: center;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const StyledButton = styled.button`
+  width: 100%;
+  padding: 16px 0;
+  background-color: ${veryDarkColor};
+  color: ${white};
+  font-weight: 600;
+  font-size: 24px;
+  outline: none;
+  border: none;
+  margin-bottom: 64px;
+  
+  &:hover{
+    cursor: pointer;
+    transition: .3s;
+    background-color: #398169;
+  }
 `;
 
 const BestProducts = () => {
-  const [products, setProducts] = useState<IProduct[]>([]);
-
-  useEffect(() => {
-    http.get("products").then((response) => setProducts(response.data));
-  }, []);
+  const { data } = useQuery<IProduct[]>(["products"], () => getAllProducts());
+  const products = data?.slice(0, data.length / 3);
+  const navigate = useNavigate();
 
   return (
-    <StyledContainerProducts>
-      {products.map((product) => (
-        <Card
-          key={product.id}
-          price={product.price}
-          title={product.title}
-          image={product.image}
-        />
-      ))}
-    </StyledContainerProducts>
+    <Container>
+      <StyledContainerProducts>
+        {products?.map((product) => (
+          <StyledLink to={`/product/${product.id}`} key={product.id}>
+            <Card
+              price={product.price}
+              title={product.title}
+              image={product.image}
+            />
+          </StyledLink>
+        ))}
+      </StyledContainerProducts>
+      <StyledButton onClick={() => navigate('/products')}>Ver todos</StyledButton>
+    </Container>
   );
 };
 
