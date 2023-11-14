@@ -1,6 +1,7 @@
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 import styled from "styled-components";
 import { darkColor, veryDarkColor } from "../../UI/variables";
+import { useState } from "react";
 
 const StyledButton = styled.button`
   display: flex;
@@ -51,13 +52,13 @@ const StyledOption = styled.div`
 
 interface PropsFilter {
   options: string[]
-  open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
   filter: string
   setFilter: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Filter = ({ options, filter, setFilter, setOpen, open } : PropsFilter) => {
+const Filter = ({ options, filter, setFilter} : PropsFilter) => {
+  const [open, setOpen] = useState(false);
+  
   return (
     <StyledButton onClick={() => setOpen(!open)} onBlur={() => setOpen(false)}>
       <span>{filter || "Filtrar Por:"}</span>
