@@ -27,10 +27,11 @@ const StyledLabel = styled.label`
 
 interface Props {
   placeholder: string;
-  type?: "text" | "email" | "password" | "number" | "phone";
+  type?: "text" | "email" | "password" | "number" | "tel";
   label: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
+  required?: boolean
 }
 
 const Input = ({
@@ -39,6 +40,7 @@ const Input = ({
   label,
   onChange,
   value,
+  required = true
 }: Props) => {
   return (
     <div>
@@ -48,6 +50,7 @@ const Input = ({
         type={type}
         value={value}
         onChange={onChange}
+        required={required}
       />
     </div>
   );
