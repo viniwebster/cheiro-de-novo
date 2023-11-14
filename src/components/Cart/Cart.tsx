@@ -29,7 +29,8 @@ const StyledCart = styled.ul<{ open: boolean }>`
 
   @media screen and (max-width: 500px) {
     width: 100vw;
-    top: 28%;
+    top: 114px;
+    right: -33px;
   }
 `;
 
