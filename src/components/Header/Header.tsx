@@ -1,11 +1,14 @@
 import { darkColor, white } from "../../UI/variables";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { BiShoppingBag, BiMenu } from "react-icons/bi";
+import { BiShoppingBag } from "react-icons/bi";
+import { FaUserCircle  } from "react-icons/fa";
 import { TfiCrown } from "react-icons/tfi";
-import { AiOutlineClose } from "react-icons/ai"
 import InputText from "../InputSearch/InputSearch";
 import { useState } from "react";
+import { useUserState } from "../../hooks/useUserState";
+import Cart from "../Cart/Cart";
+import { useCartState } from "../../hooks/useCartState";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -23,12 +26,6 @@ const StyledHeader = styled.header`
       gap: 16px;
       align-items: initial;
       justify-content: inherit;
-    }
-  }
-
-  @media screen and (max-width: 500px) {
-    input {
-      grid-area: 3/1;
     }
   }
 `;
@@ -54,36 +51,24 @@ const StyledContainerInput = styled.div`
 
   @media screen and (max-width: 500px){
     width: 100%;
+    grid-area: 2/1;
+    grid-column-end: 4;
   }
 `
-
-const StyledMenuMobile = styled.div`
-    display: none;
-  @media screen and (max-width: 500px) {
-      display: block;
-  }
-`;
 
 const StyledMenuUser = styled.div<{ $open: boolean }>`
     display: flex;
     align-items: center;
     position: relative;
+    grid-area: 1/3;
     gap: 24px;
-    @media screen and (max-width: 500px) {
-      display: ${props => props.$open ? "flex" : "none"};
-      flex-direction: column;
-
-      background-color: ${darkColor};
-      padding: 16px;
-
-      position: absolute;
-      right: 0px;
-      top: 160px;
-    }
 `
 
 const Header = () => {
-  const [openMenu, setOpenMenu] = useState(false)
+  const [login] = useUserState();
+
+  const cart = useCartState();
+  const [openCart, setOpenCart] = useState(false);
 
   return (
     <StyledHeader>
@@ -100,16 +85,14 @@ const Header = () => {
           <li>
             <StyledLink to={"/products"}>Produtos</StyledLink>
           </li>
-          <StyledMenuMobile onClick={() => setOpenMenu(!openMenu)}>
-            { openMenu ? <AiOutlineClose color="white" size={40} /> : <BiMenu color="white" size={40} />}
-          </StyledMenuMobile>
         </StyledUl>
         <StyledContainerInput>
         <InputText placeholder="Busque aqui..." />
         </StyledContainerInput>
-        <StyledMenuUser $open={openMenu}>
-          <StyledLink to={"/login"}>Entre ou Cadastre-se</StyledLink>
-          <StyledLink to={"/bag"}><BiShoppingBag color="white" size={30} /></StyledLink>
+        <StyledMenuUser $open={true}>
+          {!login ? <StyledLink to={"/login"}><FaUserCircle  size={30}/></StyledLink> : (<StyledLink to={"/account"}>Minha Conta</StyledLink>)}
+          <BiShoppingBag color="white" size={30} onClick={() => setOpenCart(!openCart)} />
+          <Cart items={cart} open={openCart}/>
         </StyledMenuUser>
       </nav>
     </StyledHeader>
