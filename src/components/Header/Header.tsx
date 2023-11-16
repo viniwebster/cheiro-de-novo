@@ -2,13 +2,13 @@ import { darkColor, white } from "../../UI/variables";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { BiShoppingBag } from "react-icons/bi";
-import { FaUserCircle  } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import { TfiCrown } from "react-icons/tfi";
-import InputText from "../InputSearch/InputSearch";
 import { useState } from "react";
 import { useUserState } from "../../hooks/useUserState";
 import Cart from "../Cart/Cart";
 import { useCartState } from "../../hooks/useCartState";
+import Search from "../Search/Search";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -46,23 +46,13 @@ const StyledLink = styled(Link)`
   color: ${white};
 `;
 
-const StyledContainerInput = styled.div`
-  width: 50%;
-
-  @media screen and (max-width: 500px){
-    width: 100%;
-    grid-area: 2/1;
-    grid-column-end: 4;
-  }
-`
-
 const StyledMenuUser = styled.div<{ $open: boolean }>`
-    display: flex;
-    align-items: center;
-    position: relative;
-    grid-area: 1/3;
-    gap: 24px;
-`
+  display: flex;
+  align-items: center;
+  position: relative;
+  grid-area: 1/3;
+  gap: 24px;
+`;
 
 const Header = () => {
   const [login] = useUserState();
@@ -86,13 +76,21 @@ const Header = () => {
             <StyledLink to={"/products"}>Produtos</StyledLink>
           </li>
         </StyledUl>
-        <StyledContainerInput>
-        <InputText placeholder="Busque aqui..." />
-        </StyledContainerInput>
+        <Search />
         <StyledMenuUser $open={true}>
-          {!login ? <StyledLink to={"/login"}><FaUserCircle  size={30}/></StyledLink> : (<StyledLink to={"/account"}>Minha Conta</StyledLink>)}
-          <BiShoppingBag color="white" size={30} onClick={() => setOpenCart(!openCart)} />
-          <Cart items={cart} open={openCart}/>
+          {!login ? (
+            <StyledLink to={"/login"}>
+              <FaUserCircle size={30} />
+            </StyledLink>
+          ) : (
+            <StyledLink to={"/account"}>Minha Conta</StyledLink>
+          )}
+          <BiShoppingBag
+            color="white"
+            size={30}
+            onClick={() => setOpenCart(!openCart)}
+          />
+          <Cart items={cart} open={openCart} />
         </StyledMenuUser>
       </nav>
     </StyledHeader>
