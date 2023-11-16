@@ -8,6 +8,10 @@ const StyledContainerInfos = styled.section`
   width: 100%;
   border-top: 1px solid black;
   padding-bottom: 64px;
+
+  @media screen and (max-width: 500px){
+    padding: 0 32px 64px 32px;
+  }
 `;
 
 const StyledInfos = styled.div`
