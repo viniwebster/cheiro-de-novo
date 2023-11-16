@@ -6,11 +6,13 @@ import Input from "../../components/Input/Input";
 import { darkColor, veryDarkColor } from "../../UI/variables";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { singUp } from "../../auth/singup";
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 32px;
+  position: relative;
 `;
 
 const Container = styled.section`
@@ -46,7 +48,17 @@ const StyledContainerButton = styled.div`
   }
 `;
 
+const StyledAlert = styled.p`
+  position: absolute;
+  text-align: center;
+  font-weight: 600;
+  top: 91.5%;
+  color: ${darkColor};
+`
+
 const SingUp = () => {
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState("");
@@ -55,13 +67,59 @@ const SingUp = () => {
   const [number, setNumber] = useState("");
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("")
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const newUser = {
+      name,
+      surname,
+      email,
+      password,
+      user,
+      cep,
+      street,
+      number,
+      city,
+      phone
+    }
+    singUp(newUser)
+    setMessage("Usuário cadastrado com sucesso")
+    setName("")
+    setCEP("")
+    setCity("")
+    setEmail("")
+    setSurname("")
+    setPassword("")
+    setUser("")
+    setStreet("")
+    setNumber("")
+    setPhone("")
+    setTimeout(() => {
+      setMessage("")
+    }, 3000)
+  }
 
   return (
     <StyledContainer>
       <Container>
         <Box>
-          <StyledForm>
+          <StyledForm onSubmit={onSubmit}>
             <StyledTitleLogin>Cadastro</StyledTitleLogin>
+            <Input
+              placeholder="Insira seu nome"
+              label="Nome"
+              value={name}
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Input
+              placeholder="Insira seu sobrenome"
+              label="Sobrenome"
+              value={surname}
+              type="text"
+              onChange={(e) => setSurname(e.target.value)}
+            />
             <Input
               placeholder="Insira seu e-mail"
               label="E-mail"
@@ -114,10 +172,11 @@ const SingUp = () => {
             <Input
               placeholder="Insira seu telefone"
               label="Telefone"
-              type="phone"
+              type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
+            <StyledAlert role="alert">{message}</StyledAlert>
             <StyledContainerButton>
               <Button text="Cadastrar" />
               <br />
