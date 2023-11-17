@@ -15,26 +15,13 @@ import "swiper/css/pagination";
 
 const StyledImg = styled.img`
 width: 100%;
-  /* width: 100%;
-  object-fit: contain;
-
-  @media screen and (max-width: 900px) {
-    object-fit: cover;
-    height: 100%;
-  }
-  @media screen and (max-width: 500px) {
-    object-fit: contain;
-    height: 100%;
-  } */
 `;
 
-const StyledSwiper = styled(Swiper)`
- /*  height: 500px; */
-`
+
 
 const BannerSwiper = () => {
   return (
-    <StyledSwiper
+    <Swiper
       modules={[Autoplay, Navigation, Pagination]}
       spaceBetween={0}
       slidesPerView={1}
@@ -66,7 +53,7 @@ const BannerSwiper = () => {
           sizes="(max-width: 500px) 100%"
           />
       </SwiperSlide>
-    </StyledSwiper>
+    </Swiper>
   );
 };
 
