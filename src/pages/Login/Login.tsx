@@ -4,13 +4,24 @@ import Box from "../../components/Box/Box";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import { darkColor, veryDarkColor } from "../../UI/variables";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import http from "../../http/http";
+import { useSetUserState } from "../../hooks/useSetUserState";
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 32px;
+  position: relative;
+
+  p {
+    color: #d98f8f;
+    font-size: 18px;
+    font-weight: 600;
+    position: absolute;
+    top: 245px;
+  }
 `;
 
 const Container = styled.section`
@@ -47,20 +58,43 @@ const StyledContainerButton = styled.div`
 `
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false)
+  const setLogin = useSetUserState();
+  const navigate = useNavigate();
+
+  const userLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    http.post('/auth/login', {
+      username: user,
+      password: password
+    })
+      .then(() => {
+        setUser("");
+        setPassword("");
+        setLogin(true);  
+        navigate("/");
+      })
+        .catch(() => {
+          setError(true)
+          setTimeout(() => {
+            setError(false)
+          }, 5000)
+        })
+  }
 
   return (
     <StyledContainer>
       <Container>
         <Box>
-          <StyledForm>
+          <StyledForm onSubmit={userLogin}>
             <StyledTitleLogin>Login</StyledTitleLogin>
             <Input
-              placeholder="Insira seu e-mail"
-              label="E-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Insira seu nome de usuário"
+              label="Usuário"
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
             />
             <Input
               placeholder="Insira sua senha"
@@ -69,6 +103,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {error && <p role="alert">Usuário ou senha incorretos</p>}
             <StyledContainerButton>
               <Button text="Entre" />
               <br />
