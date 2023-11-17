@@ -21,6 +21,5 @@ export const Container = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: auto;
-  /* padding: 0 32px; */
   box-sizing: border-box;
 `;
