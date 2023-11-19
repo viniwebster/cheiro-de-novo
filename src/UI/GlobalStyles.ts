@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { primaryFont } from "./variables";
+import { darkColor, lightColor, primaryFont } from "./variables";
 
 export const GlobalStyles = createGlobalStyle`
   *{
@@ -9,4 +9,17 @@ export const GlobalStyles = createGlobalStyle`
   body {
     font-family: ${primaryFont};
   }
-`
+
+  body::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: ${lightColor};
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: ${darkColor};
+    border-radius: 20px;
+  }
+`;
