@@ -38,12 +38,13 @@ interface Props {
   img: string,
   title: string,
   price: number,
-  id: number
+  id: number,
+  onClick?: () => void
 }
 
-const ItemSearch = ({ img, title, price, id } : Props) => {
+const ItemSearch = ({ img, title, price, id, onClick } : Props) => {
   return(
-    <StyledLink to={`/product/${id}`}>
+    <StyledLink to={`/product/${id}`} onClick={onClick}>
       <img src={img} alt={title} />
       <h3>{title}</h3>
       <span>R$ {price}</span>
