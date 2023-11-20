@@ -2,7 +2,7 @@ import styled from "styled-components";
 import CartItem from "./CartItem/CartItem";
 import { IProduct } from "../../interfaces/IProduct";
 import { darkColor, lightColor } from "../../UI/variables";
-import { useSetCart } from "../../hooks/useSetCart";
+import { useRemoveItemCart } from "../../hooks/useRemoveItemCart";
 
 const StyledCart = styled.ul<{ open: boolean }>`
   display: ${(props) => (props.open ? "flex" : "none")};
@@ -40,16 +40,16 @@ interface Props {
 }
 
 const Cart = ({ items, open }: Props) => {
-  const setItemCart = useSetCart();
+  const setRemoveItem = useRemoveItemCart();
 
   const deleteItem = (id: number) => {
-    const filter = items.filter((item) => item.id !== id);
+    setRemoveItem(id)
   };
 
   return (
     <StyledCart open={open}>
       {items.length === 0
-        ? "Your Cart is empty"
+        ? <p>Your Cart is empty</p>
         : items.map((compra) => (
             <CartItem
               key={compra.id}
