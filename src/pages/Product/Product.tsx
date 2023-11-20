@@ -10,6 +10,7 @@ import { veryDarkColor } from "../../UI/variables";
 import SelectSize from "../../components/SelectSize/SelectSize";
 import InputAmount from "../../components/InputAmount/InputAmount";
 import LoaderContainer from "../../components/LoaderContainer/LoaderContainer";
+import { useSetCart } from "../../hooks/useSetCart";
 
 const StyledSection = styled.section`
   display: grid;
@@ -108,6 +109,12 @@ const Product = () => {
     getProduct(id ?? "")
   );
 
+  const setItemCart = useSetCart();
+
+  const putOnCart = (product: IProduct) => {
+    setItemCart(product)
+  }
+
   if (isLoading) {
     return <LoaderContainer />;
   }
@@ -118,7 +125,7 @@ const Product = () => {
         <StyledSection>
           <section>
             <figure>
-              <img src={product?.image} alt="" />
+              <img src={product?.image} alt={product?.title} />
             </figure>
           </section>
           <Box>
@@ -131,7 +138,7 @@ const Product = () => {
               <SelectSize sizeOptions={sizeOption} />
               <StyledButtonsContainer>
                 <InputAmount />
-                <Button text="Comprar" />
+                <Button text="Comprar" onClick={() => putOnCart(product!)}/>
               </StyledButtonsContainer>
             </StyledProductDescription>
           </Box>
