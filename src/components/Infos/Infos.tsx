@@ -3,6 +3,7 @@ import { darkColor, veryDarkColor, white } from "../../UI/variables";
 import Title from "../Title/Title";
 import { BsInstagram, BsFacebook, BsWhatsapp } from "react-icons/bs";
 import { Container } from "../../UI/utils/container";
+import { Link } from "react-router-dom";
 
 const StyledContainerInfos = styled.section`
   width: 100%;
@@ -53,7 +54,7 @@ const StyledSubtitle = styled.h3`
   margin-bottom: 16px;
 `;
 
-const StyledA = styled.a`
+const StyledLink = styled(Link)`
   text-decoration: none;
   color: ${darkColor};
 `;
@@ -94,13 +95,13 @@ const Infos = () => {
             <StyledSubtitle>Informações</StyledSubtitle>
             <ul>
               <li>
-                <StyledA href="#">Nossas lojas</StyledA>
+                <StyledLink to="#">Nossas lojas</StyledLink>
               </li>
               <li>
-                <StyledA href="#">Política de trocas e devoluções</StyledA>
+                <StyledLink to="/policies">Política de trocas e devoluções</StyledLink>
               </li>
               <li>
-                <StyledA href="#">Formas de pagamento</StyledA>
+                <StyledLink to="/payments">Formas de pagamento</StyledLink>
               </li>
             </ul>
           </div>
