@@ -8,6 +8,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import Products from "./pages/Products/Products";
 import SingUp from "./pages/SingUp/SingUp";
 import { RecoilRoot } from "recoil";
+import Policies from "./pages/Policies/Policies";
+import Payments from "./pages/Payments/Payments";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +27,8 @@ function App() {
               <Route path="/products" element={<Products />} />
               <Route path="/product/:id" element={<Product />} />
               <Route path="/account" element={<h1>Minha conta</h1>} />
+              <Route path="/policies" element={<Policies />} />
+              <Route path="/payments" element={<Payments />} />
             </Route>
           </Routes>
         </QueryClientProvider>
