@@ -12,8 +12,8 @@ export const StyledContainer = styled.section`
     no-repeat left bottom/5% url(${ramo2});
 
   @media screen and (max-width: 500px) {
-    background: no-repeat right bottom/20% url(${ramo}),
-      no-repeat left bottom/20% url(${ramo2});
+    background: no-repeat right bottom/14% url(${ramo}),
+      no-repeat left bottom/10% url(${ramo2});
   }
 `;
 
