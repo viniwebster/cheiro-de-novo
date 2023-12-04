@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import banner from "../../assets/banners/banner1.png";
-import banner1_460vw from "../../assets/banners/banner1-460w.png";
+import banner1_460w from "../../assets/banners/banner1-460w.png";
 import banner2 from "../../assets/banners/banner2.png";
 import banner2_460w from "../../assets/banners/banner2-460w.png";
 import banner3 from "../../assets/banners/banner3.png";
@@ -13,10 +13,41 @@ import "swiper/css/bundle";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const StyledImg = styled.img`
-width: 100%;
+const Slide1 = styled.div`
+height: 500px;
+background: no-repeat center url(${banner});
+background-size: cover;
+
+@media screen and (max-width: 500px){
+  height: 400px;
+  background: no-repeat center url(${banner1_460w});
+  background-size: cover;
+}
 `;
 
+const Slide2 = styled.div`
+height: 500px;
+background: no-repeat center url(${banner2});
+background-size: cover;
+
+@media screen and (max-width: 500px){
+  height: 400px;
+  background: no-repeat center url(${banner2_460w});
+  background-size: cover;
+}
+`;
+
+const Slide3 = styled.div`
+height: 500px;
+background: no-repeat center url(${banner3});
+background-size: cover;
+
+@media screen and (max-width: 500px){
+  height: 400px;
+  background: no-repeat center url(${banner3_460w});
+  background-size: cover;
+}
+`;
 
 
 const BannerSwiper = () => {
@@ -30,28 +61,13 @@ const BannerSwiper = () => {
       pagination={{ clickable: true, type: "bullets" }}
     >
       <SwiperSlide>
-        <StyledImg
-          src={banner}
-          alt=""
-          srcSet={`${banner1_460vw} 500w, ${banner} 1200w`}
-          sizes="(max-width: 500px) 100%"
-        />
+        <Slide1 />
       </SwiperSlide>
       <SwiperSlide>
-        <StyledImg 
-          src={banner2} 
-          alt="" 
-          srcSet={`${banner2_460w} 500w, ${banner2} 1200w`}
-          sizes="(max-width: 500px) 100%"
-          />
+        <Slide2 />
       </SwiperSlide>
       <SwiperSlide>
-      <StyledImg 
-          src={banner3} 
-          alt="" 
-          srcSet={`${banner3_460w} 500w, ${banner3} 1200w`}
-          sizes="(max-width: 500px) 100%"
-          />
+        <Slide3 />
       </SwiperSlide>
     </Swiper>
   );
