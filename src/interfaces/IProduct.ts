@@ -5,7 +5,8 @@ export interface IProduct {
   category?: string,
   image: string,
   description?: string
-  rating?: {}
+  rating?: {},
+  buyId?: string
 }
 
 interface IRating {
