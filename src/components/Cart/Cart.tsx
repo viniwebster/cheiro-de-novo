@@ -3,6 +3,7 @@ import CartItem from "./CartItem/CartItem";
 import { IProduct } from "../../interfaces/IProduct";
 import { darkColor, lightColor } from "../../UI/variables";
 import { useRemoveItemCart } from "../../hooks/useRemoveItemCart";
+import { v4 as uuidv4 } from "uuid";
 
 const StyledCart = styled.ul<{ open: boolean }>`
   display: ${(props) => (props.open ? "flex" : "none")};
@@ -42,8 +43,8 @@ interface Props {
 const Cart = ({ items, open }: Props) => {
   const setRemoveItem = useRemoveItemCart();
 
-  const deleteItem = (id: number) => {
-    setRemoveItem(id)
+  const deleteItem = (buyId: string) => {
+    setRemoveItem(buyId)    
   };
 
   return (
@@ -52,8 +53,8 @@ const Cart = ({ items, open }: Props) => {
         ? <p>Your Cart is empty</p>
         : items.map((compra) => (
             <CartItem
-              key={compra.id}
-              id={compra.id!}
+              key={uuidv4()}
+              buyId={compra.buyId!}
               img={compra.image}
               name={compra.title}
               price={compra.price}
