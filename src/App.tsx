@@ -10,6 +10,7 @@ import SingUp from "./pages/SingUp/SingUp";
 import { RecoilRoot } from "recoil";
 import Policies from "./pages/Policies/Policies";
 import Payments from "./pages/Payments/Payments";
+import NotFound from "./pages/NotFound/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ function App() {
               <Route path="/policies" element={<Policies />} />
               <Route path="/payments" element={<Payments />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </QueryClientProvider>
       </RecoilRoot>
