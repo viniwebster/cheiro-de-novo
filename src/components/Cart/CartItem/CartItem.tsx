@@ -36,11 +36,11 @@ interface Props {
   img: string;
   name: string;
   price: number;
-  deleteItem: (id: number) => void;
-  id: number;
+  deleteItem: (id: string) => void;
+  buyId: string;
 }
 
-const CartItem = ({ img, name, price, deleteItem, id }: Props) => {
+const CartItem = ({ img, name, price, deleteItem, buyId }: Props) => {
   return (
     <StyledList>
       <StyledName>
@@ -50,7 +50,7 @@ const CartItem = ({ img, name, price, deleteItem, id }: Props) => {
 
       <StyledPrice>
         <span> R$ {price} </span>
-        <AiFillDelete onClick={() => deleteItem(id)} />
+        <AiFillDelete onClick={() => deleteItem(buyId)} />
       </StyledPrice>
     </StyledList>
   );
