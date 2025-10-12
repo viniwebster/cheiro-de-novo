@@ -41,7 +41,7 @@ const LandingPage = () => {
             <img src={logo} alt="cheiro de novo" />
           </figure>
           <figure>
-            <img src={landingImg} alt="Moça sentada olhando para o lado" />
+            <img src={landingImg} alt="Moça sentada olhando para o lado " />
           </figure>
         </StyledDiv>
     </StyledContainer>
